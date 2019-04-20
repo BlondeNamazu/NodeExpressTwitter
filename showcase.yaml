@@ -1,2 +1,5 @@
-type: "static"
-startup: npm start
+type: runtime
+image: runtime/node
+startup: npm install
+entrypoint: npm start
+http_proxy: 3000
