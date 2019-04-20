@@ -22,6 +22,19 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 
+// passport-twitter variables
+var session = require('express-session');
+var auth = require('./passport');
+var passport = auth.passport;
+
+// specify routing file
+var routes = require('./routes');
+
+// passport-twitter setup
+app.use(passport.initialize());
+app.use(passport.session());
+app.use(session({secret:'Namazu'}));
+
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   next(createError(404));
