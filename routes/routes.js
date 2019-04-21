@@ -3,14 +3,11 @@ var configRoutes;
 var fs = require('fs');
 
 configRoutes = function(app, server, passport) {
-    app.get('/secret', function(request, response) {
+    app.get('/me', function(request, response) {
         // 認証保護
-        console.log("passport.session : "+ passport.session);
-        console.log("passport.session.id : "+ passport.session.id);
-        if(passport.session && passport.session.id){
-            fs.readFile('./secret/secret.html', 'utf8', function (error, html) {
-                response.send(html);
-            });
+        if(passport.session && passport.session.user){
+          console.log(passport.session.user)
+          response.render('me',{ user: passport.session.user})
         } else {
             response.redirect('/login');
         }   
@@ -20,7 +17,7 @@ configRoutes = function(app, server, passport) {
     // http://passportjs.org/guide/twitter/
     app.get('/auth/twitter', passport.authenticate('twitter'));
     app.get('/auth/twitter/callback', 
-        passport.authenticate('twitter', { successRedirect: '/secret',
+        passport.authenticate('twitter', { successRedirect: '/me',
                                                 failureRedirect: '/login' }));
     // <-----
 }

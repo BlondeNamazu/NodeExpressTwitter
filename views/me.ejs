@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= user.name %>'s page</title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+  </head>
+  <body>
+    <p>Hello, <%= user.name %>!</p>
+    <img src="<%= user.profile_image_url %>" >
+    <p>Your Twitter ID : <%= user.screen_name %></p>
+    <a href="<%= 'https://twitter.com/'+ user.screen_name %>">@<%= user.screen_name %></a>
+  </body>
+</html>
+

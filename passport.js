@@ -19,7 +19,7 @@ passport.use(new TwitterStrategy({
     callbackURL: "http://nodeexpresstwitterlogintest.namazu.trap.show/auth/twitter/callback"
   },
   function(token, tokenSecret, profile, done) {
-    passport.session.id = profile.id;
+    passport.session.user = profile._json;
 
     // tokenとtoken_secretをセット
     profile.twitter_token = token;

@@ -23,7 +23,7 @@ app.set('port', port);
 var server = http.createServer(app);
 
 // specify routing file
-var routes = require('../routes');
+var routes = require('../routes/routes');
 
 // passport-twitter variables
 var session = require('express-session');
