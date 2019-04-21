@@ -20,6 +20,8 @@ passport.use(new TwitterStrategy({
   },
   function(token, tokenSecret, profile, done) {
     passport.session.user = profile._json;
+    passport.session.access_token = token;
+    passport.session.access_token_secret = tokenSecret;
 
     // tokenとtoken_secretをセット
     profile.twitter_token = token;
