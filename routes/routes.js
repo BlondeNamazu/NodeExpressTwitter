@@ -11,7 +11,7 @@ configRoutes = function(app, server, passport) {
             response.redirect('/login');
         }   
     });
-    app.get('/tweet', function(request, response) {
+    app.get('/tweet/:content', function(request, response) {
         // 認証保護
         if(passport.session && passport.session.user){
           var twitter = require('twitter');
@@ -21,13 +21,17 @@ configRoutes = function(app, server, passport) {
             "access_token_key": passport.session.access_token,
             "access_token_secret": passport.session.access_token_secret
           }
+          console.log(client_json);
           var client = new twitter(client_json);
-          client.post('statuses/update', {status: 'test tweet'}, function(err, tweet, response){
+          var tweetcontent = request.params.content == '' ? "test tweet" : request.params.content;
+          console.log(tweetcontent);
+          client.post('statuses/update', {status: tweetcontent}, function(err, tweet, response){
             if(!err) console.log(tweet);
             else console.log(err);
           });
           response.redirect('/me');
         } else {
+            console.log("authentication failed");
             response.redirect('/login');
         }   
     });
