@@ -5,6 +5,8 @@ var fs = require('fs');
 configRoutes = function(app, server, passport) {
     app.get('/secret', function(request, response) {
         // 認証保護
+        console.log("passport.session : "+ passport.session);
+        console.log("passport.session.id : "+ passport.session.id);
         if(passport.session && passport.session.id){
             fs.readFile('./secret/secret.html', 'utf8', function (error, html) {
                 response.send(html);
