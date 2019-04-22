@@ -1,20 +1,19 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title><%= session.user.name %>'s page</title>
+    <title><%= displayName %>'s page</title>
     <link rel='stylesheet' href='/stylesheets/style.css' />
   </head>
   <body>
-    <p>Hello, <%= session.user.name %>!</p>
-    <img src="<%= session.user.profile_image_url %>" >
-    <p>Your Twitter ID : <%= session.user.screen_name %></p>
+    <p>Hello, <%= displayName %>!</p>
+    <img src="<%= image_url %>" >
+    <p>Your Twitter ID : <%= screen_name %></p>
     <textarea id="tweet-content" cols="30" rows="5" maxlength="140" placeholder="type your tweet!"></textarea>
     <br>
     <script>
       function tw(){
         var textbox = document.getElementById("tweet-content");
-        var value = "/tweet/" + textbox.value;
-        console.log(value);
+        const value = "/tweet/" + "<%= id %>" + "/" + textbox.value;
         textbox.value = "";
         location.href = value;
       }

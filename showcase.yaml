@@ -1,4 +1,5 @@
 type: runtime
+use_mongodb: true
 image: runtime/node
 startup: npm install
 entrypoint: npm start

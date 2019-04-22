@@ -7,6 +7,7 @@ var logger = require('morgan');
 var debug = require('debug')('twittertest:server');
 var http = require('http');
 var createError = require('http-errors');
+require('dotenv').config();
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
@@ -14,16 +15,23 @@ var routes = require('./routes/routes');
 
 var app = express();
 var server = http.createServer(app);
+var session = require('express-session');
+var mongoose = require('mongoose');
+mongoose.connect('mongodb://'+process.env.MONGODB_USERNAME+':'+process.env.MONGODB_PASSWORD+'@'+process.env.MONGODB_HOSTNAME+':27017/'+process.env.MONGODB_DATABASE,{useNewUrlParser:true});
+var db = mongoose.connection;
+db.on('error', console.error.bind(console,'connection error:'));
+db.once('open', ()=>{console.log("successfully connected to mongodb!")});
 
 // passport-twitter variables
-var session = require('express-session');
 var auth = require('./passport');
 var passport = auth.passport;
 
 // passport-twitter setup
 app.use(passport.initialize());
 app.use(passport.session());
-app.use(session({secret:'Namazu'}));
+app.use(session({
+  secret:'Namazu'
+  }));
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -66,7 +74,7 @@ app.set('port', port);
 server.listen(port);
 server.on('error', onError);
 server.on('listening', onListening);
-onListening();
+//onListening();
 
 /**
  * Normalize a port into a number, string, or false.
