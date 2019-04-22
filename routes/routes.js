@@ -8,7 +8,7 @@ configRoutes = function(app, server, passport) {
         if(passport.session && passport.session.user){
           response.render('me',{ session: passport.session})
         } else {
-            response.redirect('/login');
+            response.redirect('/');
         }   
     });
     app.get('/tweet/:content', function(request, response) {
@@ -32,7 +32,7 @@ configRoutes = function(app, server, passport) {
           response.redirect('/me');
         } else {
             console.log("authentication failed");
-            response.redirect('/login');
+            response.redirect('/');
         }   
     });
 
@@ -41,7 +41,7 @@ configRoutes = function(app, server, passport) {
     app.get('/auth/twitter', passport.authenticate('twitter'));
     app.get('/auth/twitter/callback', 
         passport.authenticate('twitter', { successRedirect: '/me',
-                                                failureRedirect: '/login' }));
+                                                failureRedirect: '/' }));
     // <-----
 }
 
